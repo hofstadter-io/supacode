@@ -1,0 +1,6 @@
+I would like to make a social media application called Interludes.
+Users have a Profile with an avatar, about section, and their current status.
+Users can have many posts. They can write them as drafts and publish them later.
+Users can add hashtags in their content. They can also subscribe to hashtags.
+Users can up and down vote posts. They should be able to see all posts the voted on.
+Users can follow and block each other. They can also be banned and appeal their ban.

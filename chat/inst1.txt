@@ -1,0 +1,5 @@
+Add a verified field to the user.
+Add the common database fields to the user Profile.
+Make sure the User and Profile have the proper relation fields.
+Add a model Post and make it so users can have many.
+Add a model Follows so that users can follow each other.
