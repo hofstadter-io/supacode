@@ -1,7 +1,9 @@
-CREATE TABLE {{ snake .Model.Name }} (
-{{ range $K, $F := .Model.Fields }}
+{{ $DM := .DM }}
+{{ $M := .Model }}
+CREATE TABLE {{ snake $M.Plural }} (
+{{ range $K, $F := $M.Fields }}
 {{ if ne $K "$hof" }}
-{{ template "sql/create-field.sql" (dict "Field" $F "DM" .DM) }},
+{{ template "sql/create-field.sql" (dict "Field" $F "Model" $M "DM" $DM) }}
 {{ end }}
 {{ end }}
 );
