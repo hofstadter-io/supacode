@@ -11,67 +11,26 @@ Creator: gen.#Generator & {
 	Create: {
 		Message: {
 			let name = Input.name
-			Before: "Creating a new Go Cli"
+			Before: "Creating a new Supacode project"
 			After: """
-			Your new Cli generator is ready, run the following
-			to generate the code, build the binary, and run \(name).
-
-			now run 'make first'    (cd to the --outdir if used)
-			"""
+				Your new app is ready, run 'make first' to get started!
+				Be sure to check out the Readme too.
+				"""
 		}
 
 		Args: [...string]
 		if len(Args) > 0 {
 			Input: name: Args[0]
 		}
+		if len(Args) > 1 {
+			Input: repo: Args[1]
+		}
 
 		Input: {
-			name:      string
-			repo:      string
-			about:     string
-			releases:  bool | *false
-			updates:   bool | *false
-			telemetry: bool | *false
+			name: string
+			repo: string | *"github.com/demo/\(name)"
 		}
 
-		Prompt: [{
-			Name:       "name"
-			Type:       "input"
-			Prompt:     "What is your CLI named"
-			Required:   true
-			Validation: common.NameLabel
-		},{
-			Name:       "repo"
-			Type:       "input"
-			Prompt:     "Git repository"
-			Default:    "github.com/user/repo"
-			Validation: common.NameLabel
-		},{
-			Name:       "about"
-			Type:       "input"
-			Prompt:     "Tell us a bit about it..."
-			Required:   true
-			Validation: common.NameLabel
-		},{
-			Name:       "releases"
-			Type:       "confirm"
-			Prompt:     "Enable GoReleaser tooling"
-			Default:    true
-		},
-
-		if Input.releases == true {
-			Name:       "updates"
-			Type:       "confirm"
-			Prompt:     "Enable self updating"
-			Default:    true
-		}
-
-		if Input.releases == true {
-			Name:       "telemetry"
-			Type:       "confirm"
-			Prompt:     "Enable telemetry"
-		}
-		]
 	}
 
 	In: {
@@ -79,13 +38,13 @@ Creator: gen.#Generator & {
 		...
 	}
 
-	Out: [...gen.#File] & [ 
+	Out: [...gen.#File] & [
 		for file in [
-			// "debug.yaml",
-			"cue.mod/module.cue",
-			"cli.cue",
-			"Makefile",
-		]{ TemplatePath: file, Filepath: file }
+					// "debug.yaml",
+					"cue.mod/module.cue",
+					"gen.cue",
+					"Makefile",
+		] {TemplatePath: file, Filepath: file},
 	]
 
 	Templates: [{
@@ -98,8 +57,8 @@ Creator: gen.#Generator & {
 	EmbeddedTemplates: {
 		"debug.yaml": {
 			Content: """
-			{{ yaml . }}
-			"""
+				{{ yaml . }}
+				"""
 		}
 	}
 }

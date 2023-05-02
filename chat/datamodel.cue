@@ -19,7 +19,7 @@ _Schema: {
 Datamodel: _Schema
 
 // Correction for missing deleted_at field
-Datamodel: Models: [string]: deleted_at: "datatime"
+Datamodel: Models: [string]: deleted_at: "datetime"
 
 // STEP 0
 // Set the name to Interludes

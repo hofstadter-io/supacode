@@ -7,6 +7,7 @@ import (
 
 // Generator definition
 Generator: gen.#Generator & {
+	PackageName: "github.com/hofstadter-io/hofmod-supacode"
 
 	// User inputs to this generator
 	// -----------------------------
@@ -60,8 +61,8 @@ Generator: gen.#Generator & {
 		//Filepath:     "debug.txt"
 		//},
 		{
-			TemplatePath: "migration.sql"
-			Filepath:     "migrations/latest.sql"
+			TemplatePath: "sql/migration.sql"
+			Filepath:     "supabase/migrations/latest.sql"
 		},
 	]
 
@@ -69,8 +70,8 @@ Generator: gen.#Generator & {
 		In: {
 			Snapshot: S
 		}
-		TemplatePath: "migration.sql"
-		Filepath:     "migrations/\(S.Timestamp).sql"
+		TemplatePath: "sql/migration.sql"
+		Filepath:     "supabase/migrations/\(S.Timestamp).sql"
 	}]
 	...
 }
