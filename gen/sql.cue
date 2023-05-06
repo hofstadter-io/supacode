@@ -6,7 +6,7 @@ import (
 )
 
 // Generator definition
-Generator: gen.#Generator & {
+SQL: gen.#Generator & {
 	PackageName: "github.com/hofstadter-io/hofmod-supacode"
 
 	// User inputs to this generator
