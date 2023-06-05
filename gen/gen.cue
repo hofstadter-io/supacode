@@ -9,7 +9,7 @@ import (
 )
 
 // Generator definition
-Generator: gen.#Generator & {
+Generator: gen.Generator & {
 	ModuleName: "github.com/hofstadter-io/supacode"
 
 	// User inputs to this generator
@@ -21,7 +21,7 @@ Generator: gen.#Generator & {
 	// Base output directory, defaults to current
 	Outdir: string | *"./"
 
-	gen.#TemplateSubdirs & {#subdir: "common"}
+	gen.TemplateSubdirs & {#subdir: "common"}
 	// gen.#EmptyTemplates
 	// Statics: []
 
