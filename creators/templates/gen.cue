@@ -3,8 +3,8 @@ package {{ .name }}
 import (
 	"github.com/hofstadter-io/hof/schema/dm/fields"
 
-	"github.com/hofstadter-io/hofmod-supacode/gen"
-	"github.com/hofstadter-io/hofmod-supacode/schema"
+	"github.com/hofstadter-io/supacode/gen"
+	"github.com/hofstadter-io/supacode/schema"
 )
 
 // Generator definition

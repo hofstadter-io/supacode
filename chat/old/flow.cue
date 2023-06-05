@@ -3,7 +3,7 @@ package chat
 import (
 	"encoding/json"
 
-	"github.com/hofstadter-io/hofmod-supacode/chat/prompts"
+	"github.com/hofstadter-io/supacode/chat/old/prompts"
 )
 
 _start: {

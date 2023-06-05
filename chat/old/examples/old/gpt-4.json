@@ -1,0 +1,271 @@
+{
+    "GPT": {
+        "Name": "Interludes",
+        "Models": {
+            "Profile": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "avatar": "url",
+                "about": "string",
+                "status": "string",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "user": {
+                        "name": "user",
+                        "type": "belongs-to",
+                        "model": "User"
+                    }
+                }
+            },
+            "User": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "email": "email",
+                "active": "bool",
+                "$relations": {
+                    "profile": {
+                        "name": "profile",
+                        "type": "has-one",
+                        "model": "Profile"
+                    },
+                    "posts": {
+                        "name": "posts",
+                        "type": "has-many",
+                        "model": "Post"
+                    },
+                    "watchedHashtags": {
+                        "name": "watchedHashtags",
+                        "type": "many-to-many",
+                        "model": "Hashtag"
+                    },
+                    "votes": {
+                        "name": "votes",
+                        "type": "has-many",
+                        "model": "Vote"
+                    },
+                    "following": {
+                        "name": "following",
+                        "type": "has-many",
+                        "model": "Follow"
+                    },
+                    "followers": {
+                        "name": "followers",
+                        "type": "has-many",
+                        "model": "Follow"
+                    },
+                    "muting": {
+                        "name": "muting",
+                        "type": "has-many",
+                        "model": "Mute"
+                    },
+                    "muted_by": {
+                        "name": "muted_by",
+                        "type": "has-many",
+                        "model": "Mute"
+                    },
+                    "blocking": {
+                        "name": "blocking",
+                        "type": "has-many",
+                        "model": "Block"
+                    },
+                    "bans": {
+                        "name": "bans",
+                        "type": "has-many",
+                        "model": "Ban"
+                    },
+                    "blocked_by": {
+                        "name": "blocked_by",
+                        "type": "has-many",
+                        "model": "Block"
+                    },
+                    "appeals": {
+                        "name": "appeals",
+                        "type": "has-many",
+                        "model": "Appeal"
+                    }
+                },
+                "deleted_at": "datetime",
+                "verified": "bool"
+            },
+            "Post": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "published_at": "datetime",
+                "content": "string",
+                "status": "string",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "user": {
+                        "name": "user",
+                        "type": "belongs-to",
+                        "model": "User"
+                    },
+                    "hashtags": {
+                        "name": "hashtags",
+                        "type": "many-to-many",
+                        "model": "Hashtag"
+                    },
+                    "votes": {
+                        "name": "votes",
+                        "type": "has-many",
+                        "model": "Vote"
+                    }
+                }
+            },
+            "Hashtag": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "name": "string",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "posts": {
+                        "name": "posts",
+                        "type": "many-to-many",
+                        "model": "Post"
+                    },
+                    "users": {
+                        "name": "users",
+                        "type": "many-to-many",
+                        "model": "User"
+                    }
+                }
+            },
+            "PostHashtag": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "post_id": "uuid",
+                "$relations": {},
+                "deleted_at": "datetime",
+                "hashtag_id": "uuid"
+            },
+            "UserHashtag": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "user_id": "uuid",
+                "$relations": {},
+                "deleted_at": "datetime",
+                "hashtag_id": "uuid"
+            },
+            "Vote": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "post_id": "uuid",
+                "user_id": "uuid",
+                "value": "int",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "user": {
+                        "name": "user",
+                        "type": "belongs-to",
+                        "model": "User"
+                    },
+                    "post": {
+                        "name": "post",
+                        "type": "belongs-to",
+                        "model": "Post"
+                    }
+                }
+            },
+            "Follow": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "follower_id": "uuid",
+                "followee_id": "uuid",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "follower": {
+                        "name": "follower",
+                        "type": "belongs-to",
+                        "model": "User"
+                    },
+                    "followee": {
+                        "name": "followee",
+                        "type": "belongs-to",
+                        "model": "User"
+                    }
+                }
+            },
+            "Mute": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "muted_by_id": "uuid",
+                "muted_id": "uuid",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "muted_by": {
+                        "name": "muted_by",
+                        "type": "belongs-to",
+                        "model": "User"
+                    },
+                    "muted": {
+                        "name": "muted",
+                        "type": "belongs-to",
+                        "model": "User"
+                    }
+                }
+            },
+            "Block": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "blocked_by_id": "uuid",
+                "blocked_id": "uuid",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "blocked_by": {
+                        "name": "blocked_by",
+                        "type": "belongs-to",
+                        "model": "User"
+                    },
+                    "blocked": {
+                        "name": "blocked",
+                        "type": "belongs-to",
+                        "model": "User"
+                    }
+                }
+            },
+            "Ban": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "user_id": "uuid",
+                "reason": "string",
+                "start_date": "datetime",
+                "end_date": "datetime",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "user": {
+                        "name": "user",
+                        "type": "belongs-to",
+                        "model": "User"
+                    }
+                }
+            },
+            "Appeal": {
+                "id": "uuid",
+                "created_at": "datetime",
+                "updated_at": "datetime",
+                "ban_id": "uuid",
+                "reason": "string",
+                "status": "string",
+                "deleted_at": "datetime",
+                "$relations": {
+                    "ban": {
+                        "name": "ban",
+                        "type": "belongs-to",
+                        "model": "Ban"
+                    }
+                }
+            }
+        }
+    }
+}

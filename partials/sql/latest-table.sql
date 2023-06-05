@@ -12,13 +12,13 @@
 
 {{ if eq (gokind $UM) "map" }}
 {{/* is it a new field? */}}
-{{ template "sql/update-table.sql" (dict "DM" $DM "Model" $UM "Name" $M.Name) }}
+{{ template "update-table.sql" (dict "DM" $DM "Model" $UM "Name" $M.Name) }}
 
 {{ else if eq (gokind $PTMP) "map" }}
 {{/* is it a new model? */}}
 {{ $CM := lookup $K $PTMP }}
 {{ if eq (gokind $CM) "map" }}
-{{ template "sql/create-table.sql" (dict "DM" $DM "Model" $M) }}
+{{ template "create-table.sql" (dict "DM" $DM "Model" $M) }}
 {{ else }}
 /*    create - nothing to do */
 {{ end }}

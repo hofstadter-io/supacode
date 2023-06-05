@@ -12,8 +12,8 @@ Creator: gen.#Generator & {
 		Message: {
 			let name = Input.name
 			Before: "Creating a new Supacode project"
-			After: """
-				Your new app is ready, run 'make first' to get started!
+			After:  """
+				Your new app "\(name)" is ready, run 'make first' to get started!
 				Be sure to check out the Readme too.
 				"""
 		}
@@ -27,10 +27,23 @@ Creator: gen.#Generator & {
 		}
 
 		Input: {
-			name: string
-			repo: string | *"github.com/demo/\(name)"
+			name: string | *"example"
+			repo: string | *"hof.io/supacode/\(name)"
 		}
 
+		Prompt: [{
+			Name:       "name"
+			Type:       "input"
+			Prompt:     "What is your CLI named"
+			Required:   true
+			Validation: common.NameLabel
+		}, {
+			Name:       "repo"
+			Type:       "input"
+			Prompt:     "Git repository"
+			Default:    "github.com/user/\(Input.name)"
+			Validation: common.NameLabel
+		}]
 	}
 
 	In: {
@@ -38,17 +51,31 @@ Creator: gen.#Generator & {
 		...
 	}
 
-	Out: [...gen.#File] & [
+	Out: [...gen.#File] & [{
+		Filepath: "cue.mod/module.cue"
+		Val: {
+			module: In.repo
+			"cue":  "0.5.0"
+
+			require: {
+				"github.com/hofstadter-io/hof":      "v0.6.8-rc.2"
+				"github.com/hofstadter-io/supacode": "v0.1.0"
+			}
+		}
+	},
+
 		for file in [
 					// "debug.yaml",
-					"cue.mod/module.cue",
 					"gen.cue",
+					"Readme.md",
 					"Makefile",
 		] {TemplatePath: file, Filepath: file},
 	]
 
 	Templates: [{
-		Globs: ["creators/templates/**/*"]
+		Globs: [
+			"creators/templates/**",
+		]
 		TrimPrefix: "creators/templates/"
 	}]
 	Statics: []

@@ -5,7 +5,7 @@
 ALTER TABLE {{ snake $M.Plural }}
 	{{ range $l, $f := $fields }}
 	{{ $F := lookup $l $M.Fields }}
-	{{ template "sql/add-field.sql" (dict "Field" $F "Model" $M "DM" .DM) }}
+	{{ template "add-field.sql" (dict "Field" $F "Model" $M "DM" .DM) }}
 	{{ end }}
 ;
 {{ end }}

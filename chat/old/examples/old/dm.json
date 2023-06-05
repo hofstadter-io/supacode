@@ -1,0 +1,1011 @@
+{
+    "Datamodel": {
+        "Models": {
+            "Profile": {
+                "Name": "Profile",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "avatar": {
+                        "Name": "avatar",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "about": {
+                        "Name": "about",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "status": {
+                        "Name": "status",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "user": {
+                        "Name": "user",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "user",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "User": {
+                "Name": "User",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "email": {
+                        "Name": "email",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": true,
+                        "Nullable": false,
+                        "Validation": {
+                            "Max": 64,
+                            "Format": "email"
+                        }
+                    },
+                    "active": {
+                        "Name": "active",
+                        "Type": "bool",
+                        "Default": "false",
+                        "Nullable": false
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "verified": {
+                        "Name": "verified",
+                        "Type": "bool",
+                        "Default": "false",
+                        "Nullable": false
+                    },
+                    "profile": {
+                        "Name": "profile",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "profile",
+                            "Type": "has-one",
+                            "Other": "Profile"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "posts": {
+                        "Name": "posts",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "posts",
+                            "Type": "has-many",
+                            "Other": "Post"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "watchedHashtags": {
+                        "Name": "watchedHashtags",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "watchedHashtags",
+                            "Type": "many-to-many",
+                            "Other": "Hashtag"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "votes": {
+                        "Name": "votes",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "votes",
+                            "Type": "has-many",
+                            "Other": "Vote"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "following": {
+                        "Name": "following",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "following",
+                            "Type": "has-many",
+                            "Other": "Follow"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "followers": {
+                        "Name": "followers",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "followers",
+                            "Type": "has-many",
+                            "Other": "Follow"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "muting": {
+                        "Name": "muting",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "muting",
+                            "Type": "has-many",
+                            "Other": "Mute"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "muted_by": {
+                        "Name": "muted_by",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "muted_by",
+                            "Type": "has-many",
+                            "Other": "Mute"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "blocking": {
+                        "Name": "blocking",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "blocking",
+                            "Type": "has-many",
+                            "Other": "Block"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "bans": {
+                        "Name": "bans",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "bans",
+                            "Type": "has-many",
+                            "Other": "Ban"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "blocked_by": {
+                        "Name": "blocked_by",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "blocked_by",
+                            "Type": "has-many",
+                            "Other": "Block"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "appeals": {
+                        "Name": "appeals",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "appeals",
+                            "Type": "has-many",
+                            "Other": "Appeal"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "Post": {
+                "Name": "Post",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "published_at": {
+                        "Name": "published_at",
+                        "Type": "datetime"
+                    },
+                    "content": {
+                        "Name": "content",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "status": {
+                        "Name": "status",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "user": {
+                        "Name": "user",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "user",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "hashtags": {
+                        "Name": "hashtags",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "hashtags",
+                            "Type": "many-to-many",
+                            "Other": "Hashtag"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "votes": {
+                        "Name": "votes",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "votes",
+                            "Type": "has-many",
+                            "Other": "Vote"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "Hashtag": {
+                "Name": "Hashtag",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "name": {
+                        "Name": "name",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "posts": {
+                        "Name": "posts",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "posts",
+                            "Type": "many-to-many",
+                            "Other": "Post"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "users": {
+                        "Name": "users",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "users",
+                            "Type": "many-to-many",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "PostHashtag": {
+                "Name": "PostHashtag",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "post_id": {
+                        "Name": "post_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "hashtag_id": {
+                        "Name": "hashtag_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "UserHashtag": {
+                "Name": "UserHashtag",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "user_id": {
+                        "Name": "user_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "hashtag_id": {
+                        "Name": "hashtag_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "Vote": {
+                "Name": "Vote",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "post_id": {
+                        "Name": "post_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "user_id": {
+                        "Name": "user_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "value": {
+                        "Name": "value",
+                        "Type": "int",
+                        "Nullable": false
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "user": {
+                        "Name": "user",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "user",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "post": {
+                        "Name": "post",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "post",
+                            "Type": "belongs-to",
+                            "Other": "Post"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "Follow": {
+                "Name": "Follow",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "follower_id": {
+                        "Name": "follower_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "followee_id": {
+                        "Name": "followee_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "follower": {
+                        "Name": "follower",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "follower",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "followee": {
+                        "Name": "followee",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "followee",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "Mute": {
+                "Name": "Mute",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "muted_by_id": {
+                        "Name": "muted_by_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "muted_id": {
+                        "Name": "muted_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "muted_by": {
+                        "Name": "muted_by",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "muted_by",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "muted": {
+                        "Name": "muted",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "muted",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "Block": {
+                "Name": "Block",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "blocked_by_id": {
+                        "Name": "blocked_by_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "blocked_id": {
+                        "Name": "blocked_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "blocked_by": {
+                        "Name": "blocked_by",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "blocked_by",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "blocked": {
+                        "Name": "blocked",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "blocked",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "Ban": {
+                "Name": "Ban",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "user_id": {
+                        "Name": "user_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "reason": {
+                        "Name": "reason",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "start_date": {
+                        "Name": "start_date",
+                        "Type": "datetime"
+                    },
+                    "end_date": {
+                        "Name": "end_date",
+                        "Type": "datetime"
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "user": {
+                        "Name": "user",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "user",
+                            "Type": "belongs-to",
+                            "Other": "User"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            },
+            "Appeal": {
+                "Name": "Appeal",
+                "Fields": {
+                    "id": {
+                        "Name": "id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "sql": {
+                            "primaryKey": true
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "created_at": {
+                        "Name": "created_at",
+                        "Type": "datetime"
+                    },
+                    "updated_at": {
+                        "Name": "updated_at",
+                        "Type": "datetime"
+                    },
+                    "ban_id": {
+                        "Name": "ban_id",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    },
+                    "reason": {
+                        "Name": "reason",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "status": {
+                        "Name": "status",
+                        "Type": "string",
+                        "Length": 64,
+                        "Unique": false,
+                        "Nullable": false,
+                        "sqlType": "varchar(64)",
+                        "Validation": {
+                            "Max": 64
+                        }
+                    },
+                    "deleted_at": {
+                        "Name": "deleted_at",
+                        "Type": "datetime"
+                    },
+                    "ban": {
+                        "Name": "ban",
+                        "Type": "uuid",
+                        "Nullable": false,
+                        "Unique": true,
+                        "Relation": {
+                            "Name": "ban",
+                            "Type": "belongs-to",
+                            "Other": "Ban"
+                        },
+                        "Validation": {
+                            "Format": "uuid"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
