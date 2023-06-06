@@ -81,7 +81,7 @@ Creator: gen.Generator & {
 
 			require: {
 				"github.com/hofstadter-io/hof":      "v0.6.8-rc.4"
-				"github.com/hofstadter-io/supacode": "v0.0.2"
+				"github.com/hofstadter-io/supacode": "v0.0.3"
 			}
 		}
 	},
