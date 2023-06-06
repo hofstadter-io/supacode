@@ -13,8 +13,9 @@ Generator: gen.Generator & {
 	// User inputs to this generator
 	// -----------------------------
 
-	// The server design conforming to the server schema
+	// The app data model & design conforming to schema
 	Datamodel: schema.Datamodel
+	App:       schema.App
 
 	// Base output directory, defaults to current
 	Outdir: string | *"./"
@@ -22,14 +23,13 @@ Generator: gen.Generator & {
 	// Required fields for hof
 	// ------------------------
 
-	// In is passed to every template
+	// In is passed to every template as the root context
 	In: {
-		DM: Datamodel
+		"App":       App
+		"Datamodel": Datamodel
 
-		// this will cause an issue during injection
-		// we won't know what datamodel this local 'In.User' really belongs to
-		// this applies at the File.In scope as well
-		// User: Datamodel.Models.User
+		// shorthand
+		DM: Datamodel
 	}
 
 	gen.TemplateSubdirs & {#subdir: "sql"}
@@ -65,6 +65,7 @@ Generator: gen.Generator & {
 	]
 
 	_MigrationFiles: [...gen.File] & [ for _, S in In.DM.History {
+		// we can extend file context locally
 		In: {
 			Snapshot: S
 		}

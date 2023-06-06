@@ -17,7 +17,7 @@ Generator: gen.Generator & {
 	"App": App
 }
 
-App: schema.Application & {
+App: schema.App & {
 	Name:    "{{ .name }}"
 	Module:  "{{ .repo }}"
 }

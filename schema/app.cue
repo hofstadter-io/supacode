@@ -8,4 +8,5 @@ Datamodel: sql.Datamodel & {
 
 App: {
 	Name: string
+	...
 }

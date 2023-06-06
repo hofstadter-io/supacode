@@ -25,12 +25,11 @@ Generator: gen.Generator & {
 
 	// In is passed to every template
 	In: {
-		DM: Datamodel
+		"App":       App
+		"Datamodel": Datamodel
 
-		// this will cause an issue during injection
-		// we won't know what datamodel this local 'In.User' really belongs to
-		// this applies at the File.In scope as well
-		// User: Datamodel.Models.User
+		// shorthand
+		DM: Datamodel
 	}
 
 	gen.TemplateSubdirs & {#subdir: "app"}
@@ -51,21 +50,22 @@ Generator: gen.Generator & {
 
 	// Files that are generated once per server
 	_OnceFiles: [...gen.File] & [
+			//{
+			//TemplatePath: "debug.txt"
+			//Filepath:     "debug.txt"
+			//},
 			{
-			TemplatePath: "Makefile"
-			Filepath:     "Makefile"
+			TemplatePath: "package.json"
+			Filepath:     "package.json"
 		},
-		//{
-		//TemplatePath: "debug.txt"
-		//Filepath:     "debug.txt"
-		//},
 		{
 			TemplatePath: "app/layout.tsx"
 			Filepath:     "app/layout.tsx"
 		},
 	]
 
-	_ModelFiles: [...gen.File] & [ for m, M in Datamodel.Models if m != "$hof" {
+	_ModelFiles: [...gen.File] & [ for m, M in Datamodel.Models {
+		// we can extend file context locally
 		In: {
 			Model: M
 		}

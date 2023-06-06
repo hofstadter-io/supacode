@@ -34,6 +34,7 @@ Generator: gen.Generator & {
 		}
 		"sql": sql.Generator & {
 			"Datamodel": Datamodel
+			"App":       App
 		}
 	}
 }

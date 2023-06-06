@@ -1,1 +1,3 @@
-foo abr
+sql:
+	@echo make sql, wooosh!
+
