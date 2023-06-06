@@ -59,6 +59,7 @@ Creator: gen.Generator & {
 				@task(os.Exec)
 				_script: """
 					git init \(Input.repo)
+					hof get github.com/hofstadter-io/supacode@latest
 					hof mod tidy
 					hof gen
 					npm install
@@ -80,8 +81,7 @@ Creator: gen.Generator & {
 			"cue":  "0.5.0"
 
 			require: {
-				"github.com/hofstadter-io/hof":      "v0.6.8-rc.4"
-				"github.com/hofstadter-io/supacode": "v0.0.3"
+				"github.com/hofstadter-io/hof": "v0.6.8-rc.4"
 			}
 		}
 	},

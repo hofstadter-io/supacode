@@ -6,11 +6,7 @@ package supacode
 import (
 	"github.com/hofstadter-io/supacode/creators"
 	"github.com/hofstadter-io/supacode/flows"
-	"github.com/hofstadter-io/supacode/gen"
-	"github.com/hofstadter-io/supacode/schema"
 )
 
 creators
 flows
-gen
-schema
