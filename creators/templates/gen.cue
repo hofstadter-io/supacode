@@ -2,6 +2,7 @@ package {{ .name }}
 
 import (
 	"github.com/hofstadter-io/hof/schema/dm/fields"
+	"github.com/hofstadter-io/hof/schema/dm/sql"
 
 	"github.com/hofstadter-io/supacode/flows"
 	"github.com/hofstadter-io/supacode/gen"
@@ -28,7 +29,7 @@ Workflows: {
 
 // The models we want in our database as tables & columns
 Datamodel: schema.Datamodel & {
-	$hof: metadata: name: "Datamodel"
+	#hof: metadata: name: "Datamodel"
 	// these are the models for the application
 	// they map onto database tables
 	Models: {
