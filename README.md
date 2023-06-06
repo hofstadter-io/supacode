@@ -1,11 +1,11 @@
 # supacode
 
-develop full-stack apps, the hof way
+### develop full-stack apps, the hof way
 
 1. let hof manage the data model and repeatitive code
 2. focus on the core features of your app
 
-You get an updatable, high quality code base to develop with.
+### You get an updatable, high quality code base to develop with.
 
 1. start from a core data model and configuration
 2. hof generate the majority of boilerplate, helpers, and extras
@@ -18,9 +18,9 @@ ensuring consistency and maintaining standards.
 You custom code can live within or next to
 the generated application code.
 
-Edit any part, hof will make sure the right thing happens.
+__Edit any part, hof will make sure the right thing happens.__
 
-Built on:
+### Built on:
 
 - [Supabase](https://supabase.com)
 - [React](https://react.dev/)
