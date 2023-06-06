@@ -3,6 +3,7 @@ package {{ .name }}
 import (
 	"github.com/hofstadter-io/hof/schema/dm/fields"
 
+	"github.com/hofstadter-io/supacode/flows"
 	"github.com/hofstadter-io/supacode/gen"
 	"github.com/hofstadter-io/supacode/schema"
 )
@@ -18,6 +19,11 @@ Generator: gen.Generator & {
 App: schema.Application & {
 	Name:    "{{ .name }}"
 	Module:  "{{ .repo }}"
+}
+
+Workflows: {
+	first: flows.first
+	dev:   flows.dev
 }
 
 // The models we want in our database as tables & columns

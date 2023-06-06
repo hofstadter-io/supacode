@@ -10,6 +10,8 @@ import (
 
 // Generator definition
 Generator: gen.Generator & {
+	@gen(supacode)
+
 	ModuleName: "github.com/hofstadter-io/supacode"
 
 	// User inputs to this generator

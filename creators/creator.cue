@@ -5,8 +5,10 @@ import (
 	"github.com/hofstadter-io/hof/schema/gen"
 )
 
-Creator: gen.#Generator & {
+Creator: gen.Generator & {
 	@gen(creator)
+
+	ModuleName: ""
 
 	Create: {
 		Message: {
@@ -27,8 +29,8 @@ Creator: gen.#Generator & {
 		}
 
 		Input: {
-			name: string | *"example"
-			repo: string | *"hof.io/supacode/\(name)"
+			name: string
+			repo: string
 		}
 
 		Prompt: [{
@@ -44,6 +46,20 @@ Creator: gen.#Generator & {
 			Default:    "github.com/user/\(Input.name)"
 			Validation: common.NameLabel
 		}]
+
+		PostExec: {
+			@flow(post-exec)
+
+			init: {
+				@task(os.Exec)
+				_script: """
+					pwd && ls
+					hof mod tidy
+					hof flow @first
+					"""
+				cmd: ["bash", "-c", _script]
+			}
+		}
 	}
 
 	In: {
@@ -51,7 +67,7 @@ Creator: gen.#Generator & {
 		...
 	}
 
-	Out: [...gen.#File] & [{
+	Out: [...gen.File] & [{
 		Filepath: "cue.mod/module.cue"
 		Val: {
 			module: In.repo
@@ -74,9 +90,9 @@ Creator: gen.#Generator & {
 
 	Templates: [{
 		Globs: [
-			"creators/templates/**",
+			"./creators/templates/**",
 		]
-		TrimPrefix: "creators/templates/"
+		TrimPrefix: "./creators/templates/"
 	}]
 	Statics: []
 	Partials: []

@@ -26,27 +26,26 @@ edit any part and hof will make sure the right thing happens.
 Various self & saas providers are possible for core application features
 like auth, user management, chat, email, billing, deployment, and devops.
 
+[insert screencast]
+
 
 ## Create a new app
 
 Ensure you have the [hof cli installed](https://docs.hofstadter.io/getting-started/install/)
 
 ```sh
+# create a new directory
+mkdir myapp && cd myapp
+
 # create a new application from supacode
 hof create github.com/hofstadter-io/supacode myapp
-
-# navigate to the new application
-cd myapp
 
 # run the first time setup
 hof flow @first
 ```
 
 This will walk you through the process of creating a new supacode application.
-
-[insert screencast]
-
-You should now have a running starter application
+When done, you should have a running application.
 
 ## Development, the hof way
 
