@@ -7,18 +7,13 @@
 
 ### You get an updatable, high quality code base to develop with.
 
-1. start from a core data model and configuration
-2. hof generate the majority of boilerplate, helpers, and extras
-3. add or customize the logic, interfaces, and integrations
-4. evolve the data model, the generated and custom code are automatically updated
+1. define a core data model and configuration
+2. generate the majority of boilerplate, helpers, and extras
+3. extend or customize the logic, interfaces, and integrations
+4. evolve the data model and code, updates are automated
 
 As you develop your data model and application,
-hof will help you automate the code changes,
-ensuring consistency and maintaining standards.
-You custom code can live within or next to
-the generated application code.
-
-__Edit any part, hof will make sure the right thing happens.__
+edit any part and hof will make sure the right thing happens.
 
 ### Built on:
 
@@ -36,7 +31,7 @@ like auth, user management, chat, email, billing, deployment, and devops.
 
 Ensure you have the [hof cli installed](https://docs.hofstadter.io/getting-started/install/)
 
-```
+```sh
 # create a new application from supacode
 hof create github.com/hofstadter-io/supacode myapp
 
@@ -60,7 +55,7 @@ start developing your core features.
 
 ### start dev mode
 
-```
+```sh
 hof flow @dev
 ```
 
@@ -74,8 +69,8 @@ Now, as you edit files in any part of the stack,
 the appropriate recompilation and live update will happen.
 There is a hot-reload stack, such that:
 
-1. [hof -> code]: Changes to the data model trigger hof code regen
-2. [code -> app]: Changes to the code trigger app recompilation
+1. __hof -> code__: Changes to the data model trigger hof code regen
+2. __code -> app__: Changes to the code trigger app recompilation
 
 
 ### work on app
@@ -83,14 +78,19 @@ There is a hot-reload stack, such that:
 When developing with hof,
 you work from both sides of the code generation.
 
-__(before)__ by modifying the data model and supacode app configuration.
+```
+(inputs)    edit the data model and supacode configuration
+  vvv
+[codegen]   hof (hot reload)
+  vvv
+(output)    edit code details or writing any custom code
+  vvv
+[running]   npx (hot reload)
+```
 
-[code gen here]
-
-__(after)__ by filling in code details or writing any custom code.
-
-hof will ensure when you change either, the correct steps are taken
-to update your application code, the running server, and connected clients.
+When you change either the code gen inputs or outputs,
+hof will ensure the correct steps are taken to
+update your application code, the running server, and connected clients.
 
 #### 1. edit the data model
 
@@ -103,12 +103,18 @@ the application will see updates and hot-reload itself.
 
 #### 2. edit the application code
 
-You can edit and modify hof's generated code and other outputs directly.
+You can modify and extend the generated code.
 When you again edit the data model, your changes will be automatically
 merged with the new generated code.
+You can also add any extra files you like.
 
-You can also add any extra files you like, use them to
+You can use generated and custom code in both directions:
 
-- make use of the helpers and libraries generated from your datamodel
-- use custom libraries in the generated code implementation
+- __gen -> custom__: use helpers and libraries for your datamodel
+- __custom -> gen__: use custom code to fill in the implementation
+
+__supacode__ has many good defaults for CRUD operations based on your data model.
+As you update, these handlers will update along with the various integrations,
+like auth and other features, which you configure as part of __supacode__'s inputs
+
 
