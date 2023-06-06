@@ -15,6 +15,8 @@
 As you develop your data model and application,
 edit any part and hof will make sure the right thing happens.
 
+[insert screencast]
+
 ### Built on:
 
 - [Supabase](https://supabase.com)
@@ -26,12 +28,18 @@ edit any part and hof will make sure the right thing happens.
 Various self & saas providers are possible for core application features
 like auth, user management, chat, email, billing, deployment, and devops.
 
-[insert screencast]
+### Tools you'll need
+
+- [hof](https://docs.hofstadter.io/getting-started/install/)
+- [node](https://nodejs.org)
+- [docker](https://docs.docker.com)
+- [supabase](https://supabase.com/docs/guides/getting-started/local-development) [cli](https://supabase.com/docs/guides/cli)
+
+Supabase will be installed with your project development dependencies
 
 
 ## Create a new app
 
-Ensure you have the [hof cli installed](https://docs.hofstadter.io/getting-started/install/)
 
 ```sh
 # create a new directory
@@ -39,9 +47,6 @@ mkdir myapp && cd myapp
 
 # create a new application from supacode
 hof create github.com/hofstadter-io/supacode myapp
-
-# run the first time setup
-hof flow @first
 ```
 
 This will walk you through the process of creating a new supacode application.

@@ -12,7 +12,7 @@ import (
 // Generator definition
 Generator: gen.Generator & {
 	Name: "{{ .name }}"
-	Outdir:      "out"
+	Outdir:      "./"
 	"Datamodel": Datamodel
 	"App": App
 }
@@ -23,7 +23,6 @@ App: schema.Application & {
 }
 
 Workflows: {
-	first: flows.first
 	dev:   flows.dev
 }
 

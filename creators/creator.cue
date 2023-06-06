@@ -13,10 +13,15 @@ Creator: gen.Generator & {
 	Create: {
 		Message: {
 			let name = Input.name
-			Before: "Creating a new Supacode project"
+			Before: "creating a supacode project"
 			After:  """
-				Your new app "\(name)" is ready, run 'make first' to get started!
-				Be sure to check out the Readme too.
+				========================
+				\(name) is ready!
+
+				to get started, run...
+
+				$ hof flow @dev
+				========================
 				"""
 		}
 
@@ -53,9 +58,10 @@ Creator: gen.Generator & {
 			init: {
 				@task(os.Exec)
 				_script: """
-					pwd && ls
+					git init \(Input.repo)
 					hof mod tidy
-					hof flow @first
+					hof gen
+					npm install
 					"""
 				cmd: ["bash", "-c", _script]
 			}
