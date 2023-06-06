@@ -58,8 +58,7 @@ Creator: gen.Generator & {
 			init: {
 				@task(os.Exec)
 				_script: """
-					git init \(Input.repo)
-					hof get github.com/hofstadter-io/supacode@latest
+					git init
 					hof mod tidy
 					hof gen
 					npm install
