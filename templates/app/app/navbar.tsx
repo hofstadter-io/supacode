@@ -1,40 +1,65 @@
 'use client';
 
 import React from 'react';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import * as Navbar from '@radix-ui/react-navigation-menu';
 
-const NavigationMenuDemo = () => {
+import './navbar.css';
+
+const NavbarDemo = () => {
   return (
-		<NavigationMenu.Root className="p-6 bg-blue">
-			<NavigationMenu.List className="flex flex-row justify-between">
-        <NavigationMenu.Item>
-          <NavigationMenu.Link href="/">
+		<Navbar.Root className="p-3 px-5 bg-emerald-500">
+			<Navbar.List className="flex flex-row justify-between">
+        <Navbar.Item>
+          <Navbar.Link href="/">
 						{% .App.Name %}
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
+          </Navbar.Link>
+        </Navbar.Item>
 
 				<div className="flex flex-row">
 					{% range .Datamodel.Models %}
-						<NavigationMenu.Item className="mx-3">
-							<NavigationMenu.Trigger>{% .Name %}</NavigationMenu.Trigger>
-							<NavigationMenu.Content>{% .Name %} stuff...</NavigationMenu.Content>
-						</NavigationMenu.Item>
+						<Navbar.Item>
+							<Navbar.Trigger className="px-3">{% .Name %}</Navbar.Trigger>
+							<Navbar.Content>{% .Name %} stuff...</Navbar.Content>
+						</Navbar.Item>
 					{% end %}
 				</div>
 
-        <NavigationMenu.Item>
-          <NavigationMenu.Link href="/profile">
+				{/* test submenus */}
+				<Navbar.Item>
+					<Navbar.Trigger>Item two</Navbar.Trigger>
+					<Navbar.Content>
+						<Navbar.Sub defaultValue="sub1">
+							<Navbar.List>
+								<Navbar.Item value="sub1">
+									<Navbar.Trigger>Sub item one</Navbar.Trigger>
+									<Navbar.Content>
+										Sub item one content
+									</Navbar.Content>
+								</Navbar.Item>
+								<Navbar.Item value="sub2">
+									<Navbar.Trigger>Sub item two</Navbar.Trigger>
+									<Navbar.Content>
+										Sub item two content
+									</Navbar.Content>
+								</Navbar.Item>
+							</Navbar.List>
+						</Navbar.Sub>
+					</Navbar.Content>
+				</Navbar.Item>
+
+        <Navbar.Item>
+          <Navbar.Link href="/profile">
 						Profile
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
+          </Navbar.Link>
+        </Navbar.Item>
 
-				<NavigationMenu.Indicator className="NavigationMenuIndicator" />
-			</NavigationMenu.List>
+				<Navbar.Indicator className="NavbarIndicator" />
+			</Navbar.List>
 
-			{/* NavigationMenu.Content will be rendered here when active */}
-			<NavigationMenu.Viewport />
-		</NavigationMenu.Root>
+			{/* Navbar.Content will be rendered here when active */}
+			<Navbar.Viewport className="NavbarViewport"/>
+		</Navbar.Root>
   );
 };
 
-export default NavigationMenuDemo;
+export default NavbarDemo;
