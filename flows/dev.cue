@@ -3,7 +3,15 @@ package flows
 dev: {
 	@flow(dev)
 
+	supabaseStart: {
+		@task(os.Exec)
+		cmd: ["npm", "exec", "supabase", "start"]
+		exitcode: _
+	}
+
 	hof: {
+		dep: supabaseStart
+
 		@task(os.Watch)
 		globs: ["*.cue"]
 		handler: {
@@ -27,7 +35,19 @@ dev: {
 	}
 
 	npm: {
+		dep: supabaseStart
 		@task(os.Exec)
 		cmd: ["npm", "run", "dev"]
+		exitcode: _
+	}
+
+}
+
+stop: {
+	@flow(stop)
+
+	supabaseStop: {
+		@task(os.Exec)
+		cmd: ["npm", "exec", "supabase", "stop"]
 	}
 }

@@ -62,6 +62,7 @@ Creator: gen.Generator & {
 					hof mod tidy
 					hof gen
 					npm install
+					npm exec supabase init
 					"""
 				cmd: ["bash", "-c", _script]
 			}

@@ -1,6 +1,9 @@
 package app
 
 import (
+	"list"
+	"strings"
+
 	"github.com/hofstadter-io/hof/schema/gen"
 
 	"github.com/hofstadter-io/supacode/schema"
@@ -49,28 +52,37 @@ Generator: gen.Generator & {
 	// ----------------------------------------------
 
 	// Files that are generated once per server
-	_OnceFiles: [...gen.File] & [
-			//{
-			//TemplatePath: "debug.txt"
-			//Filepath:     "debug.txt"
-			//},
-			{
-			TemplatePath: "package.json"
-			Filepath:     "package.json"
-		},
-		{
-			TemplatePath: "app/layout.tsx"
-			Filepath:     "app/layout.tsx"
-		},
-	]
-
-	_ModelFiles: [...gen.File] & [ for m, M in Datamodel.Models {
-		// we can extend file context locally
-		In: {
-			Model: M
-		}
-		TemplatePath: "src/types/model.ts"
-		Filepath:     "src/types/\(m).ts"
+	_OnceFiles: [...gen.File] & [ {
+		TemplatePath: "package.json"
+		Filepath:     "package.json"
+	}, {
+		TemplatePath: "app/globals.css"
+		Filepath:     "app/globals.css"
+	}, {
+		TemplatePath: "app/page.tsx"
+		Filepath:     "app/page.tsx"
+	}, {
+		TemplatePath: "app/layout.tsx"
+		Filepath:     "app/layout.tsx"
 	}]
+
+	_ModelFiles: [...gen.File] & list.FlattenN([ for m, M in Datamodel.Models {
+		let lm = strings.ToLower(m)
+
+		// apply in to each file
+		[...{In: Model: M}]
+
+		// for each model, produce a list of files, which we flatten out
+		[{
+			TemplatePath: "src/types/model.ts"
+			Filepath:     "src/types/\(lm).ts"
+		}, {
+			TemplatePath: "app/page.tsx"
+			Filepath:     "app/\(lm)/page.tsx"
+		}, {
+			TemplatePath: "app/route.ts"
+			Filepath:     "app/api/\(lm)/route.ts"
+		}]
+	}], 1)
 	...
 }
