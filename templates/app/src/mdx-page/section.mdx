@@ -1,0 +1,39 @@
+#### How about a CUE (r)evolutionn?
+
+<CH.Spotlight start={1} rows={5}>
+
+A CUE Value
+
+```cue value.cue
+num: _
+cow: _
+```
+
+---
+
+Schema
+
+```cue value.cue
+num: int
+cow: string
+```
+
+---
+
+Constraint
+
+```cue value.cue
+num: > 13
+cow: =~ "^mo+$"
+```
+
+---
+
+Data
+
+```cue value.cue
+num: 42
+cow: "mooooo"
+```
+
+</CH.Spotlight>

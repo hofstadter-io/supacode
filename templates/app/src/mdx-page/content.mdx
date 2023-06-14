@@ -1,0 +1,106 @@
+export const meta = {
+  title: "Hello, Supacode!",
+  weight: 10
+};
+
+# { meta.title }
+
+hallo: page weight is { meta.weight }
+
+### Add a page
+
+<CH.Section>
+
+Pages are just NextJS pages with two files
+
+1. [MDX content.mdx](focus://content.mdx#1:20) with an [exported meta](focus://content.mdx#1:4) and [MDX afterwards](focus://content.mdx#6:10).
+1. [NextJS page.tsx](focus://page.tsx#1:20)
+
+<CH.Code>
+
+```mdx content.mdx
+export const meta = {
+  title: "Page Title",
+  weight: 1
+};
+
+# { meta.title }
+
+page content
+```
+
+```tsx page.tsx
+"use client";
+
+// mark
+import Content from "./content.mdx";
+
+export default function Page(props: any) {
+  return (
+    // mark
+    <Content {...props} />
+  );
+}
+```
+
+
+</CH.Code>
+
+</CH.Section>
+
+
+You can size and style the content by wrapping it in a `<div>`.
+
+<CH.Code>
+
+```tsx wrapped.tsx mark=7:9
+"use client";
+
+import Content from "./content.mdx";
+
+export default function Page(props: any) {
+  return (
+    <div className="p-8">
+      <Content {...props} />
+    </div>
+  );
+}
+```
+
+</CH.Code>
+
+It's often better to do this in a layout for consistent styling across the pages
+
+```tsx layout.tsx
+// from ./layout.tsx
+```
+
+
+### imported mdx section
+
+You can import mdx files in mdx files with a small snippet.
+
+Use this to create reusable fragments across your site.
+
+
+```mdx <snippet>
+import CodeSection from './section.mdx';
+
+<CodeSection />
+```
+
+#### produced content...
+
+---
+
+import CodeSection from './section.mdx';
+
+<CodeSection />
+
+---
+
+The `section.mdx` file has the following content:
+
+```mdx section.mdx
+// from ./section.mdx
+```

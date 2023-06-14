@@ -3,17 +3,20 @@ package flows
 dev: {
 	@flow(dev)
 
-	supabaseStart: {
-		@task(os.Exec)
-		cmd: ["npm", "exec", "supabase", "start"]
-		exitcode: _
-	}
+	//supabaseStart: {
+	//  @task(os.Exec)
+	//  cmd: ["npm", "exec", "supabase", "start"]
+	//  exitcode: _
+	//}
 
 	hof: {
-		dep: supabaseStart
+		// dep: supabaseStart
 
 		@task(os.Watch)
-		globs: ["*.cue"]
+		globs: [
+			"*.cue",
+			"cue.mod/pkg/github.com/hofstadter-io/supacode/**/*.*",
+		]
 		handler: {
 			event?: _
 			compile: {
@@ -35,7 +38,7 @@ dev: {
 	}
 
 	npm: {
-		dep: supabaseStart
+		// dep: supabaseStart
 		@task(os.Exec)
 		cmd: ["npm", "run", "dev"]
 		exitcode: _
@@ -50,4 +53,8 @@ stop: {
 		@task(os.Exec)
 		cmd: ["npm", "exec", "supabase", "stop"]
 	}
+}
+
+newPage: {
+	@flow(new/page)
 }

@@ -51,14 +51,6 @@ Generator: gen.Generator & {
 	// Files that are generated once per server
 	_OnceFiles: [...gen.File] & [
 			{
-			TemplatePath: "Makefile"
-			Filepath:     "Makefile"
-		},
-		//{
-		//TemplatePath: "debug.txt"
-		//Filepath:     "debug.txt"
-		//},
-		{
 			TemplatePath: "migration.sql"
 			Filepath:     "supabase/migrations/latest.sql"
 		},
