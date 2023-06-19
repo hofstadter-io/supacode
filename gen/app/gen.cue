@@ -60,34 +60,26 @@ Generator: gen.Generator & {
 	// ----------------------------------------------
 
 	// Files that are generated once per server
-	_OnceFiles: [...gen.File] & [ {
-		TemplatePath: "package.json"
-		Filepath:     "package.json"
-	}, {
-		TemplatePath: "src/app/globals.css"
-		Filepath:     "src/app/globals.css"
-	}, {
-		TemplatePath: "src/app/page.tsx"
-		Filepath:     "src/app/page.tsx"
-	}, {
-		TemplatePath: "src/app/navbar.tsx"
-		Filepath:     "src/app/navbar.tsx"
-	}, {
-		TemplatePath: "src/app/footer.tsx"
-		Filepath:     "src/app/footer.tsx"
-	}, {
-		TemplatePath: "src/app/providers.tsx"
-		Filepath:     "src/app/providers.tsx"
-	}, {
-		TemplatePath: "src/app/layout.tsx"
-		Filepath:     "src/app/layout.tsx"
-	}, {
-		TemplatePath: "src/app/error.tsx"
-		Filepath:     "src/app/error.tsx"
-	}, {
-		TemplatePath: "src/app/not-found.tsx"
-		Filepath:     "src/app/not-found.tsx"
-	}]
+	_OnceFiles: [...gen.File] & [
+
+		for f in [
+			"package.json",
+			"src/app/globals.css",
+			"src/app/page.tsx",
+			"src/app/navbar.tsx",
+			"src/app/footer.tsx",
+			"src/app/providers.tsx",
+			"src/app/layout.tsx",
+			"src/app/error.tsx",
+			"src/app/not-found.tsx",
+			"src/lib/db.ts",
+			"src/lib/auth/config.ts",
+			"prisma/schema.prisma",
+		] {
+			TemplatePath: f
+			Filepath:     f
+		},
+	]
 
 	// This is a pattern for defining multiple files per element during interation
 	// we will produce a list of lists [models -> files], and need to flatten them
@@ -117,16 +109,19 @@ Generator: gen.Generator & {
 
 		// the file list we produce for each model
 		[{
-			TemplatePath: "src/mdx-page/layout.tsx"
+			TemplatePath: "src/mdx/page/layout.tsx"
 			Filepath:     "src/app/\(p)/layout.tsx"
 		}, {
-			TemplatePath: "src/mdx-page/page.tsx"
+			TemplatePath: "src/mdx/page/page-tree.ts"
+			Filepath:     "src/app/\(p)/page-tree.ts"
+		}, {
+			TemplatePath: "src/mdx/page/page.tsx"
 			Filepath:     "src/app/\(p)/page.tsx"
 		}, {
-			TemplatePath: "src/mdx-page/content.mdx"
+			TemplatePath: "src/mdx/page/content.mdx"
 			Filepath:     "src/app/\(p)/content.mdx"
 		}, {
-			TemplatePath: "src/mdx-page/section.mdx"
+			TemplatePath: "src/mdx/page/section.mdx"
 			Filepath:     "src/app/\(p)/section.mdx"
 		}]
 	}], 1)
@@ -137,18 +132,25 @@ Generator: gen.Generator & {
 
 		// the file list we produce for each model
 		[{
-			TemplatePath: "src/mdx-dir/layout.tsx"
+			TemplatePath: "src/mdx/remote/layout.tsx"
 			Filepath:     "src/app/\(d)/layout.tsx"
 		}, {
-			TemplatePath: "src/mdx-dir/page.tsx"
+			TemplatePath: "src/mdx/remote/page-tree.ts"
+			Filepath:     "src/app/\(d)/page-tree.ts"
+		}, {
+			Val: []
+			Filepath: "src/app/\(d)/tree.json"
+		}, {
+			TemplatePath: "src/mdx/remote/page.tsx"
 			Filepath:     "src/app/\(d)/page.tsx"
 		}, {
 			// this extra error page has a link specific to this section
-			TemplatePath: "src/mdx-dir/slug-error.tsx"
-			Filepath:     "src/app/\(d)/[slug]/error.tsx"
+			// when using mdx/dir with dynamic import of the mdx file for the meta data
+			TemplatePath: "src/mdx/remote/slug-error.tsx"
+			Filepath:     "src/app/\(d)/[...slug]/error.tsx"
 		}, {
-			TemplatePath: "src/mdx-dir/slug-page.tsx"
-			Filepath:     "src/app/\(d)/[slug]/page.tsx"
+			TemplatePath: "src/mdx/remote/slug-page.tsx"
+			Filepath:     "src/app/\(d)/[...slug]/page.tsx"
 		}]
 	}], 1)
 

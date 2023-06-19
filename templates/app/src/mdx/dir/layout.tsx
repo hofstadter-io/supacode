@@ -4,7 +4,7 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-	<div className="p-8">
+	<div className="p-8 prose dark:prose-invert">
 		{children}
 	</div>
   );

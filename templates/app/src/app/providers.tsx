@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider, useTheme } from '@wits/next-themes';
 import { MDXProvider } from '@mdx-js/react'
 import "@code-hike/mdx/dist/index.css"
@@ -9,9 +10,11 @@ import "@code-hike/mdx/dist/index.css"
 export function Providers({ children }) {
   return (
 		<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-			<MDXProvider>
-				{children}
-			</MDXProvider>
+			<SessionProvider>
+				<MDXProvider>
+					{children}
+				</MDXProvider>
+			</SessionProvider>
 		</ThemeProvider>
 	)
 }

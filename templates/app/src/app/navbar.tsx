@@ -15,8 +15,8 @@ export default function Navbar() {
       title: "Docs",
       href: "/docs"
     },{
-      title: "Blog",
-      href: "/blog"
+      title: "Essays",
+      href: "/essays"
     },{
       title: "Posts",
       href: "/posts"

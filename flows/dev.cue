@@ -3,14 +3,13 @@ package flows
 dev: {
 	@flow(dev)
 
-	//supabaseStart: {
-	//  @task(os.Exec)
-	//  cmd: ["npm", "exec", "supabase", "start"]
-	//  exitcode: _
-	//}
-
+	first: {
+		@task(os.Exec)
+		cmd: ["hof", "gen", "@supacode"]
+		exitcode: _
+	}
 	hof: {
-		// dep: supabaseStart
+		dep: first
 
 		@task(os.Watch)
 		globs: [
@@ -38,23 +37,73 @@ dev: {
 	}
 
 	npm: {
-		// dep: supabaseStart
+		dep: first
 		@task(os.Exec)
 		cmd: ["npm", "run", "dev"]
 		exitcode: _
 	}
-
 }
 
-stop: {
-	@flow(stop)
+// TODO, take some args or tags and lookup what to do for start/stop by args(s)
+// hof flow @start ... should support multiple things
+postgres: {
+	start: {
+		@flow(pg/start)
 
-	supabaseStop: {
-		@task(os.Exec)
-		cmd: ["npm", "exec", "supabase", "stop"]
+		docker: {
+			@task(os.Exec)
+			cmd: ["docker", "compose", "up", "postgres", "-d"]
+		}
+	}
+	stop: {
+		@flow(pg/stop)
+
+		docker: {
+			@task(os.Exec)
+			cmd: ["docker", "compose", "stop", "postgres"]
+		}
+	}
+
+	gen: {
+		@flow(pg/gen)
+
+		prisma: {
+			@task(os.Exec)
+			cmd: ["npm", "exec", "prisma", "generate"]
+			stdin: true
+		}
+	}
+
+	mig: {
+		@flow(pg/mig)
+
+		prisma: {
+			@task(os.Exec)
+			cmd: ["npm", "exec", "prisma", "migrate", "dev"]
+			stdin: true
+		}
+	}
+}
+
+supabase: {
+	start: {
+		@flow(supabase/start)
+
+		supabaseStop: {
+			@task(os.Exec)
+			cmd: ["npm", "exec", "supabase", "start"]
+		}
+	}
+	stop: {
+		@flow(supabase/stop)
+
+		supabaseStop: {
+			@task(os.Exec)
+			cmd: ["npm", "exec", "supabase", "stop"]
+		}
 	}
 }
 
 newPage: {
-	@flow(new/page)
+	// @flow(new/page)
 }

@@ -7,6 +7,19 @@ const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   // Optionally, add any other Next.js config below
   reactStrictMode: true,
+
+	typescript: {
+		ignoreBuildErrors: true,
+	},
+
+	images: {
+		remotePatterns: [{
+			protocol: "https",
+			hostname: "lh3.googleusercontent.com",
+			port: "",
+			pathname: "/**",
+		}]
+	}
 }
 
 const withMDX = require('@next/mdx')({
