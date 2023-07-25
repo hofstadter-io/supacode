@@ -81,7 +81,7 @@ Creator: gen.Generator & {
 			"cue":  "0.5.0"
 
 			require: {
-				"github.com/hofstadter-io/hof": "v0.6.8-rc.4"
+				"github.com/hofstadter-io/hof": "v0.6.8-rc.5"
 			}
 		}
 	},
@@ -89,8 +89,7 @@ Creator: gen.Generator & {
 		for file in [
 					// "debug.yaml",
 					"gen.cue",
-					"Readme.md",
-					"Makefile",
+					"readme.md",
 		] {TemplatePath: file, Filepath: file},
 	]
 

@@ -2,7 +2,7 @@ module: "github.com/hofstadter-io/supacode"
 cue:    "0.5.0"
 
 require: {
-	"github.com/hofstadter-io/hof": "v0.6.8-rc.4"
+	"github.com/hofstadter-io/hof": "v0.6.8-rc.5"
 }
 
 indirect: {

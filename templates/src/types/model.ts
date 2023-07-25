@@ -1,2 +1,2 @@
-/* model {{ .Model.Name }} */
+/* model {% .Model.Name %} */
 

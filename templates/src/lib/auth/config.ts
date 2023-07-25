@@ -3,9 +3,7 @@ import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-// import GithubProvider from "next-auth/providers/github";
+import Providers from "next-auth/providers";
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "../db";
@@ -16,7 +14,8 @@ export const authConfig: NextAuthOptions = {
 		maxAge: 30 * 24 * 60 * 60,  
 	},
   providers: [
-    CredentialsProvider({
+		{% if .App.auth.password.enabled %}
+    Providers.CredentialsProvider({
       name: "Email",
       credentials: {
         email: {
@@ -49,14 +48,28 @@ export const authConfig: NextAuthOptions = {
         return null;
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID! as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
+		{% end %}
+
+		{% range $name, $value := .App.auth.oauth %}
+		Providers.{% title $value.provider %}Provider({
+			id: "{% $value.id %}",
+      clientId: process.env.{% SNAKE $value.provider %}_CLIENT_ID! as string,
+      clientSecret: process.env.{% SNAKE $value.provider %}_CLIENT_SECRET! as string,
+
+			{% if or $value.scopes $value.url %}
+			authorization: { 
+				params: { 
+					{% with $value.scopes %}
+					scope: "{% . %}",
+					{% end %}
+					{% with $value.url %}
+					url: "{% . %}",
+					{% end %}
+				},
+			},
+			{% end %}
     }),
-    //GithubProvider({
-    //  clientId: process.env.GITHUB_CLIENT_ID as string,
-    //  clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-    //}),
+		{% end %}
   ],
 	callbacks: {
 		async session({ token, session }) {
@@ -69,7 +82,7 @@ export const authConfig: NextAuthOptions = {
 			}
 			return session
 		},
-		async jwt({ token, user }) {	
+		async jwt({ token, user, account, profile }) {	
 			const dbUser = await db.user.findFirst({
 				where: { email: token.email },
 			})
@@ -104,4 +117,49 @@ export const authConfig: NextAuthOptions = {
 			return '/'
 		}
 	},
+}
+
+/**
+ * Takes a token, and returns a new token with updated
+ * `accessToken` and `accessTokenExpires`. If an error occurs,
+ * returns the old token and an error property
+ */
+async function refreshAccessToken(token) {
+  try {
+    const url =
+      "https://oauth2.googleapis.com/token?" +
+      new URLSearchParams({
+        client_id: process.env.GOOGLE_CLIENT_ID,
+        client_secret: process.env.GOOGLE_CLIENT_SECRET,
+        grant_type: "refresh_token",
+        refresh_token: token.refreshToken,
+      })
+
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      method: "POST",
+    })
+
+    const refreshedTokens = await response.json()
+
+    if (!response.ok) {
+      throw refreshedTokens
+    }
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.access_token,
+      accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+    }
+  } catch (error) {
+    console.log(error)
+
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    }
+  }
 }

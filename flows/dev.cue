@@ -64,20 +64,19 @@ postgres: {
 		}
 	}
 
-	gen: {
-		@flow(pg/gen)
+}
 
-		prisma: {
+prisma: {
+	sync: {
+		@flow(prisma/sync)
+
+		gen: {
 			@task(os.Exec)
 			cmd: ["npm", "exec", "prisma", "generate"]
 			stdin: true
 		}
-	}
 
-	mig: {
-		@flow(pg/mig)
-
-		prisma: {
+		mig: {
 			@task(os.Exec)
 			cmd: ["npm", "exec", "prisma", "migrate", "dev"]
 			stdin: true

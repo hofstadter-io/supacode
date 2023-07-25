@@ -15,7 +15,7 @@ demo: gen.Generator & {
 	"App":       App
 }
 
-App: schema.Application & {
+App: schema.App & {
 	Name:   "demo"
 	Module: "github.com/hofstadter-io/supacode-demo"
 }

@@ -11,6 +11,6 @@ indirect: {
 }
 
 replace: {
-	"github.com/hofstadter-io/hof": "../../../../hof"
-	// "github.com/hofstadter-io/supacode": "../../../../mods/supacode"
+	"github.com/hofstadter-io/hof":      "../../../../hof"
+	"github.com/hofstadter-io/supacode": "../../"
 }

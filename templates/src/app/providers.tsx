@@ -2,41 +2,32 @@
 
 import React from 'react';
 
-import { SessionProvider } from 'next-auth/react';
-import { ThemeProvider, useTheme } from '@wits/next-themes';
+import { ThemeProvider } from '@wits/next-themes';
+
 import { MDXProvider } from '@mdx-js/react'
 import "@code-hike/mdx/dist/index.css"
+
+{% if .App.auth.enabled %}
+import { SessionProvider } from 'next-auth/react';
+{% end %}
 
 export function Providers({ children }) {
   return (
 		<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+			
+			{% if .App.auth.enabled %}
 			<SessionProvider>
+			{% end %}
+
 				<MDXProvider>
 					{children}
 				</MDXProvider>
+
+			{% if .App.auth.enabled %}
 			</SessionProvider>
+			{% end %}
 		</ThemeProvider>
 	)
 }
 
-export function ThemeChanger () {
-  const { resolvedTheme, setTheme } = useTheme()
-
-	const handle = function() {
-		if (resolvedTheme === "light") {
-			setTheme("dark")
-		} else {
-			setTheme("light")
-		}
-	}
-
-  return (
-		<span
-			aria-label="Toggle dark mode"
-			onClick={ () => handle() }
-		>
-			Toggle dark mode
-		</span>
-  )
-}
 

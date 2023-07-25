@@ -22,7 +22,7 @@ export default function UserDropdown ({ user, ThemeChanger }) {
 		return (
 			<div className="dropdown dropdown-end">
 				<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-					<div className="w-10">
+					<div className="w-8 h-8">
 						<Image fill src={session?.user?.image} alt="profile picture" className="rounded-full"/>
 					</div>
 				</label>

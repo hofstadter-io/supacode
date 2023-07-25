@@ -7,7 +7,7 @@ interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {
 	provider: string
 }
 
-const LoginForm = ({ provider, ...props } : LoginFormProps) => {
+const OAuthForm = ({ provider, ...props } : LoginFormProps) => {
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -35,4 +35,4 @@ const LoginForm = ({ provider, ...props } : LoginFormProps) => {
 
 }
 
-export default LoginForm
+export default OAuthForm

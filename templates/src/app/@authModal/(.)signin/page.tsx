@@ -1,10 +1,9 @@
 'use client';
 
-import Signup from '@/src/components/auth/signup'
+import Signin from '@/src/components/auth/signin'
 import CloseModal from '@/src/components/CloseModal'
 
 export default function Modal() {
-	console.log("MODAL")
 	return (
 			<div className="z-50 fixed inset-0">
 				<div className="container flex items-center h-full max-w-lg mx-auto">
@@ -13,7 +12,7 @@ export default function Modal() {
 					<div className="absolute top-4 right-4">
 						<CloseModal />
 					</div>
-					<Signup />
+					<Signin />
 				</div>
 
 				</div>
